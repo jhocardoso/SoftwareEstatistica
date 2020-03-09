@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='UTF-8'>
+		<style>
+		table, td {
+			border: 1px solid black;
+		}
+		</style>
+	</head>
+	<body>
+
+		<p>Insisra o rol de dados na tabela.</p>
+
+		<button onclick='adicionaLinha()'>Adicionar linha</button>
+		<button onclick='ordenarRol()'>Ordenar rol</button>
+			
+		<table id="rolDados">
+			  <tr>
+				<td align="center"></td>
+				<td align="center">Dados</td>
+			  </tr>
+			  <tr>
+				<td align="center">1</td>
+				<td align="center"><input type='text' name='txtRol[]' onkeypress='pegaTecla(event)'></td>
+			  </tr>
+		</table>
+		<br>
+		<p id="rolLabel"></p>
+
+		
+
+		<script>
+			var vetorRol = [];
+			i = 0;
+			//adiciona uma nova linha ao grid
+			function adicionaLinha(	) {
+				var tabela = document.getElementById("rolDados");
+				var insere = tabela.insertRow(tabela.rows.lenght);
+				var indiceLinha = tabela.rows.length -1
+				var colunaIndice = insere.insertCell(0);
+				var colunaDados = insere.insertCell(1);
+				colunaIndice.innerHTML = indiceLinha.toString();
+				colunaDados.innerHTML = "<input type='text' name='txtRol[]' onkeypress='pegaTecla(event)'>"
+				var txt = document.getElementsByName("txtRol[indiceLinha]");
+				//document.getElementById("txt").focus();
+			}
+			
+			//adiciona uma nova linha ao apertar o botÃ£o <enter>
+			function pegaTecla(event){
+				if (event.keyCode == 13){
+					adicionaLinha();
+				}
+			}
+			
+			//organiza o rol de dados
+			function ordenarRol(){
+				var vetorRol = [];
+				var rol = document.getElementsByName("txtRol[]");
+				//document.getElementById('rol').innerHTML = rol[0].value;
+				var i = 0;
+				for(i = 0; i < rol.length; i++){
+					vetorRol.push(parseInt(rol[i].value));
+				}
+				//document.getElementById('rolLabel').innerHTML = vetorOrganizado;
+					
+				//VETOR COM BUBBLE SORT
+				var vetorOrganizado = [];
+				vetorOrganizado = vetorRol; 
+
+				var troca, j;
+				for(i=0;i<vetorOrganizado.length;i++){
+					for(j=0;j<vetorOrganizado.length-1;j++){
+						if (vetorOrganizado[j] > vetorRol[j+1]){
+							troca = vetorOrganizado[j];
+							vetorOrganizado[j] = vetorOrganizado[j+1];
+							vetorOrganizado[j+1] = troca;
+						}
+					}
+				}
+				//document.getElementById('rolLabel').innerHTML = vetorOrganizado;
+				console.log(vetorOrganizado);
+				//******************************************				
+			}
+		</script>
+
+	</body>
+</html>
